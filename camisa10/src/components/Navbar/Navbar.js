@@ -23,9 +23,9 @@ function Navbar() {
           <Link to="/" className="navbar-logo">
             <img src="/img/camisa10Logo.png" alt="camisa 10 logo"/>
           </Link>
-          <div className="navbar-signup">
-            {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
-          </div>
+          <Link to="/login" className="navbar-signup">
+            {button && <Button buttonStyle='btn--outline'>LOGIN</Button>}
+          </Link>
         </div>
       </nav>
     </>
