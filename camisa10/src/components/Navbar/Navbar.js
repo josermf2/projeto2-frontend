@@ -4,6 +4,10 @@ import {Link} from 'react-router-dom'
 import './Navbar.css';
 
 function Navbar() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [button, setButton] = useState(true);
   
   const showButton = () => {
