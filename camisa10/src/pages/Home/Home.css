@@ -1,0 +1,10 @@
+.gamesTable{
+    margin-top: 5%;
+    margin-left: 3%;
+}
+.gamesTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
