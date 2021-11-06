@@ -12,7 +12,7 @@ function Table({ columns, data }) {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()} border="1">
+    <table {...getTableProps()} width="100%" border="0" cellpadding="20" cellspacing="10" className='table'>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
