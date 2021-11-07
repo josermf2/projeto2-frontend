@@ -4,14 +4,14 @@ import Table from '../../components/Table/Table'
 import './Home.css'
 import {Link} from 'react-router-dom'
 
-
 function Home() {
+
     const [gamesData, setGamesData] = useState();
     
     const [tournamentData, setTournamentData] = useState();
     
     var list = [2001, 2002, 2003, 2013, 2014, 2015, 2017, 2018, 2019, 2021, 2152]
-    
+
 
     useEffect(() => {
         api.get('/matches').then((response) => { 
@@ -84,7 +84,14 @@ function Home() {
             {
                 Header: "Name",
                 accessor: "name",
-                Cell:  e => <a href={'/tournament'}> {e.value} </a>,
+                Cell:  e => 
+                    <Link 
+                        to={{
+                            pathname: "/tournament",
+                            state: [{id:2001}]
+                        }}>
+                            {e.value}
+                    </Link>,
             },
         ],
         []
