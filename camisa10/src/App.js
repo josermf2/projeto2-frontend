@@ -15,7 +15,7 @@ function App() {
           <Route path='/' exact >
             <Home />
           </Route>
-          <Route path='/tournament' exact>
+          <Route path='/tournament'>
             <Tournament />
           </Route>
           <Route path='/favorites' exact >

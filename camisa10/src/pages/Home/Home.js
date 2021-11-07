@@ -5,12 +5,22 @@ import './Home.css'
 import {Link} from 'react-router-dom'
 
 function Home() {
+    const tournaments = {
+        "Bundesliga": 2002,
+        "Eredivisie": 2003,
+        "Campeonato Brasileiro Série A": 2013,
+        "Primera Division": 2014,
+        "Ligue 1": 2015,
+        "Primeira Liga": 2017,
+        "Serie A": 2019,
+        "Premier League": 2021,
+    }
 
     const [gamesData, setGamesData] = useState();
     
     const [tournamentData, setTournamentData] = useState();
     
-    var list = [2001, 2002, 2003, 2013, 2014, 2015, 2017, 2018, 2019, 2021, 2152]
+    var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
 
 
     useEffect(() => {
@@ -23,10 +33,12 @@ function Home() {
 
             for (var i = 0; i < numberOfMatches; i++) {
                 games.push({
+                    time: response.data.matches[i].utcDate.slice(1+response.data.matches[i].utcDate.indexOf('T'), -4),
+                    ensignUrl: response.data.matches[i].competition.area.ensignUrl,
+                    countryCode: response.data.matches[i].competition.area.code,
+                    tournament: response.data.matches[i].competition.name,
                     homeTeamName: response.data.matches[i].homeTeam.name, 
-                    awayTeamName: response.data.matches[i].awayTeam.name, 
-                    tournament: response.data.matches[i].competition.name, 
-                    time: response.data.matches[i].utcDate.slice(1+response.data.matches[i].utcDate.indexOf('T'), -1)
+                    awayTeamName: response.data.matches[i].awayTeam.name
                 })
             }
             setGamesData(games);
@@ -52,20 +64,31 @@ function Home() {
     const gamesColumns = React.useMemo(
         () => [
             {
-                Header: "Home Team",
+                Header: "Horário",
+                accessor: "time",
+            },
+            {
+                Header: "",
+                accessor: "ensignUrl",
+                Cell:  e => <img className='flags' src={e.value}/>,
+            },  
+            {
+                Header: "País",
+                accessor: "countryCode",
+            },     
+            {
+                Header: "Campeonato",
+                accessor: "tournament",
+            },   
+            {
+                Header: "Time da Casa",
                 accessor: "homeTeamName",
             },
             {
-                Header: "Away Team",
+                Header: "Visitante",
                 accessor: "awayTeamName",
-            },
-            {
-                Header: "Tournament",
-                accessor: "tournament",
-            },          {
-                Header: "Time",
-                accessor: "time",
-            },
+            },     
+
         ],
         []
     );
@@ -78,20 +101,14 @@ function Home() {
                 Cell:  e => <img className='flags' src={e.value}/>,
             },      
             {
-                Header: "Country",
+                Header: "País",
                 accessor: "countryCode",
             },
             {
-                Header: "Name",
+                Header: "Time",
                 accessor: "name",
                 Cell:  e => 
-                    <Link 
-                        to={{
-                            pathname: "/tournament",
-                            state: [{id:2001}]
-                        }}>
-                            {e.value}
-                    </Link>,
+                    <Link to={"/tournament/" + (tournaments[(e.value)])}>{e.value}</Link>,
             },
         ],
         []
@@ -101,7 +118,7 @@ function Home() {
             <div className='gamesTable'>
                 {gamesData ?  
                     <h1 className='gamesTitle'>
-                        Today's Matches
+                        Jogos do Dia
                     </h1>
                 : '' }
                 {gamesData ?  
@@ -112,7 +129,7 @@ function Home() {
             <div className='tournamentTable'>
                 {tournamentData ? 
                     <h1 className='tournamentTitle'>
-                        Tournaments
+                        Campeonatos
                     </h1> 
                 : '' }
                 {tournamentData ? 

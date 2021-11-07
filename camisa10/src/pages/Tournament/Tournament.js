@@ -3,19 +3,15 @@ import api from "../../services/api";
 import Table from '../../components/Table/Table'
 import './Tournament.css'
 import {Link} from 'react-router-dom'
-
-function Tournament() {
-    console.log(this.props.location.state);
-    
+function Tournament(props) {
     const [gamesData, setGamesData] = useState();
     
     const [tournamentData, setTournamentData] = useState();
     
     var list = [2001, 2002, 2003, 2013, 2014, 2015, 2017, 2018, 2019, 2021, 2152]
-    
 
     useEffect(() => {
-        api.get('/matches').then((response) => { 
+        api.get('/competitions/' + window.location.pathname.slice(12) + '/matches').then((response) => { 
             let games = []
             let numberOfMatches = 11;
             if (response.data.matches.length < 11){
@@ -26,25 +22,26 @@ function Tournament() {
                 games.push({
                     homeTeamName: response.data.matches[i].homeTeam.name, 
                     awayTeamName: response.data.matches[i].awayTeam.name, 
-                    tournament: response.data.matches[i].competition.name, 
                     time: response.data.matches[i].utcDate.slice(1+response.data.matches[i].utcDate.indexOf('T'), -1)
                 })
             }
             setGamesData(games);
         })
 
-        api.get('competitions/').then((response) => { 
-            let competitions = []
-            for (var i = 0; i< response.data.competitions.length; i++) {
-                if (list.includes(response.data.competitions[i].id)){
-                    competitions.push({
-                        name: response.data.competitions[i].name,
-                        countryCode: response.data.competitions[i].area.countryCode,
-                        ensignUrl: response.data.competitions[i].area.ensignUrl
-                    })
-                }
+        api.get('competitions/' + window.location.pathname.slice(12) + '/standings').then((response) => { 
+            let tournamentStangings = []
+            console.log(response.data.standings[0].table);
+            for (var i = 0; i< response.data.standings[0].table.length; i++) {
+                tournamentStangings.push({
+                    position: response.data.standings[0].table[i].position,
+                    name: response.data.standings[0].table[i].team.name,
+                    crestUrl: response.data.standings[0].table[i].team.crestUrl,
+                    points: response.data.standings[0].table[i].points,
+                    playedGames: response.data.standings[0].table[i].playedGames,
+                    won: response.data.standings[0].table[i].won
+                })
             }
-            setTournamentData(competitions);
+            setTournamentData(tournamentStangings);
         })
         // eslint-disable-next-line
     }, [])
@@ -53,17 +50,14 @@ function Tournament() {
     const gamesColumns = React.useMemo(
         () => [
             {
-                Header: "Home Team",
+                Header: "Time da Casa",
                 accessor: "homeTeamName",
             },
             {
-                Header: "Away Team",
+                Header: "Visitante",
                 accessor: "awayTeamName",
             },
             {
-                Header: "Tournament",
-                accessor: "tournament",
-            },          {
                 Header: "Time",
                 accessor: "time",
             },
@@ -72,21 +66,33 @@ function Tournament() {
     );
 
     const tournamentColumns = React.useMemo(
-        () => [  
+        () => [
+            {
+                Header: "Posição",
+                accessor: "position",
+            },  
             {
                 Header: "",
-                accessor: "ensignUrl",
+                accessor: "crestUrl",
                 Cell:  e => <img className='flags' src={e.value}/>,
             },      
             {
-                Header: "Country",
-                accessor: "countryCode",
+                Header: "Time",
+                accessor: "name",
             },
             {
-                Header: "Name",
-                accessor: "name",
-                Cell:  e => <a href={'/tournament'}> {e.value} </a>,
+                Header: "Pts",
+                accessor: "points",
             },
+            {
+                Header: "PJ",
+                accessor: "playedGames",
+            },
+            {
+                Header: "VIT",
+                accessor: "won",
+            },
+
         ],
         []
     );        
@@ -95,7 +101,7 @@ function Tournament() {
             <div className='gamesTable'>
                 {gamesData ?  
                     <h1 className='gamesTitle'>
-                        Today's Matches
+                        Jogos do Dia
                     </h1>
                 : '' }
                 {gamesData ?  
@@ -106,7 +112,7 @@ function Tournament() {
             <div className='tournamentTable'>
                 {tournamentData ? 
                     <h1 className='tournamentTitle'>
-                        Tournaments
+                        Tabela
                     </h1> 
                 : '' }
                 {tournamentData ? 
