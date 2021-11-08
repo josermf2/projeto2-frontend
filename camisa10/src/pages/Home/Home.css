@@ -1,6 +1,6 @@
 .gamesTable{
     margin-top: 1%;
-    margin-left: 6%;
+    margin-right: 6%;
 }
 
 .gamesTitle, .tournamentTitle{
@@ -12,7 +12,7 @@
 
 .tournamentTable {
     margin-top: 1%;
-    margin-right: 6%;
+    margin-left: 6%;
 }
 .homePage {
     display: flex;
@@ -23,4 +23,14 @@
 .flags {
     max-height: 25px;
     max-width: 20px;
+}
+
+.btn-star {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    border: 1px; 
+    color: black;  
 }

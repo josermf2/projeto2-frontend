@@ -1,0 +1,30 @@
+.gamesTable{
+    margin-top: 1%;
+    margin-right: 6%;
+}
+
+.gamesTitle, .tournamentTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tournamentTable {
+    margin-top: 1%;
+    margin-left: 6%;
+}
+.homePage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.flags {
+    max-height: 25px;
+    max-width: 20px;
+}
+
+.tournamentName{
+    text-align: center;
+}

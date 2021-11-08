@@ -23,14 +23,23 @@
 }
 
 img{
-    max-width: 220px;
-    max-height: 100px;
-    width: auto;
-    height:  auto;
+  max-width: 220px;
+  max-height: 100px;
+  width: auto;
+  height:  auto;
 }
 
 .navbar-signup {
-    margin-right: 20px;
-    margin-left: 10px;
-    cursor: pointer;
+  margin-right: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.form-login{
+  display: flex;
+  flex-direction: column;
+}
+
+.input{
+  margin:2%;
 }

@@ -3,6 +3,33 @@ import api from "../../services/api";
 import Table from '../../components/Table/Table'
 import './Home.css'
 import {Link} from 'react-router-dom'
+import { BsStar, BsStarFill } from "react-icons/bs";
+import { Button } from '../../components/Button/Button';
+  
+function favorite(props){
+    console.log(props);
+    return(
+        <button className="btn-star"><BsStarFill /></button>
+    );
+}
+
+/*const convertUTCToLocalTime = (dateString) => {
+    let date = new Date(dateString);
+    const milliseconds = Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+    );
+    const localTime = new Date(milliseconds);
+    localTime.getDate() // local date
+    localTime.getHours() // local hour
+
+    console.log(localTime);
+  };*/
+
 
 function Home() {
     const tournaments = {
@@ -33,7 +60,7 @@ function Home() {
 
             for (var i = 0; i < numberOfMatches; i++) {
                 games.push({
-                    time: response.data.matches[i].utcDate.slice(1+response.data.matches[i].utcDate.indexOf('T'), -4),
+                    time: (response.data.matches[i].utcDate).slice(1+response.data.matches[i].utcDate.indexOf('T'), -4),
                     ensignUrl: response.data.matches[i].competition.area.ensignUrl,
                     countryCode: response.data.matches[i].competition.area.code,
                     tournament: response.data.matches[i].competition.name,
@@ -41,6 +68,9 @@ function Home() {
                     awayTeamName: response.data.matches[i].awayTeam.name
                 })
             }
+
+
+
             setGamesData(games);
         })
 
@@ -105,27 +135,21 @@ function Home() {
                 accessor: "countryCode",
             },
             {
-                Header: "Time",
+                Header: "Campeonato",
                 accessor: "name",
                 Cell:  e => 
                     <Link to={"/tournament/" + (tournaments[(e.value)])}>{e.value}</Link>,
+            },
+            {
+                Header: "Favoritar",
+                accessor: '',
+                Cell: <button className="btn-star" onClick={favorite}><BsStar/></button>
             },
         ],
         []
     );        
     return (
         <div className='homePage'>
-            <div className='gamesTable'>
-                {gamesData ?  
-                    <h1 className='gamesTitle'>
-                        Jogos do Dia
-                    </h1>
-                : '' }
-                {gamesData ?  
-                    <Table columns={gamesColumns} data={gamesData} /> 
-                : '' }
-            </div>
-
             <div className='tournamentTable'>
                 {tournamentData ? 
                     <h1 className='tournamentTitle'>
@@ -134,6 +158,16 @@ function Home() {
                 : '' }
                 {tournamentData ? 
                     <Table columns={tournamentColumns} data={tournamentData} /> 
+                : '' }
+            </div>
+            <div className='gamesTable'>
+                {gamesData ?  
+                    <h1 className='gamesTitle'>
+                        Jogos do Dia
+                    </h1>
+                : '' }
+                {gamesData ?  
+                    <Table columns={gamesColumns} data={gamesData} /> 
                 : '' }
             </div>
         </div>       
