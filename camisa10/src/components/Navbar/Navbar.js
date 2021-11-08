@@ -19,9 +19,10 @@ function Navbar() {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+  const handleClose = () => setShow(false);
+
+
   return (
     <>
       <nav className="navbar">
@@ -36,20 +37,22 @@ function Navbar() {
       </nav>
       <Modal show={show} onHide={handleClose} style={{opacity:1}}>
         <Modal.Header closeButton>
-          <Modal.Title>LOGIN</Modal.Title>
+          <img className="modal-title" src="/img/camisa10Logo.png"/>
         </Modal.Header>
         <Modal.Body>
           <form className="form-login">
             <input className="input" placeholder="Usuário" type="text"></input>
-            <input className="input" placeholder="Senha" type="text"></input>
-            <div className="input">Não tem conta?    <Link>Registre-se</Link></div>
+            <input className="input" placeholder="Senha" type="password"></input>
+            <div className="input">Não tem conta?    <Link to="/cadastro">Registre-se</Link></div>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Fechar
           </Button>
-          {button && <Button className="navbar-signup" onClick={handleClose} buttonStyle='btn--outline'>Login</Button>}
+          <Link to="/cadastro">
+            {button && <Button onClick={handleClose} className="navbar-signup" buttonStyle='btn--outline'>Entrar</Button>}
+          </Link>
         </Modal.Footer>
       </Modal>
     </>

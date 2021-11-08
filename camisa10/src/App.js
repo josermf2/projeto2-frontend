@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/Home/Home";
 import Tournament from "./pages/Tournament/Tournament";
 import Favorites from "./pages/Favorites/Favorites";
+import Cadastro from "./pages/Cadastro/Cadastro";
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path='/favorites' exact >
             <Favorites />
+          </Route>
+          <Route path='/cadastro' exact >
+            <Cadastro />
           </Route>
         </Switch>
     </>
