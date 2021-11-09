@@ -16,14 +16,24 @@ function Tournament(props) {
         2021: "Premier League",
     }
     
+    var today = new Date();
+
+    var day = today.getDate();
+    
+    if (day.toString.length == 1) {
+        day = '0'+day;
+    }
+    
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + day; 
+    
     const [gamesData, setGamesData] = useState();
     
     const [tournamentData, setTournamentData] = useState();
     
-    var list = [2001, 2002, 2003, 2013, 2014, 2015, 2017, 2018, 2019, 2021, 2152]
-
+    var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
+    
     useEffect(() => {
-        api.get('/competitions/' + window.location.pathname.slice(12) + '/matches').then((response) => { 
+        api.get('/competitions/' + window.location.pathname.slice(12) + '/matches?dateFrom='+date+'&dateTo='+date).then((response) => { 
             let games = []
             let numberOfMatches = 11;
             if (response.data.matches.length < 11){
