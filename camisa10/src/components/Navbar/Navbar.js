@@ -17,7 +17,11 @@ function Navbar() {
 
   const [modal, setModal] = useState(false);
   const showModal = () => setModal(true);
-
+  
+  const handleCallback = (childData) =>{
+    console.log(childData)
+    setModal(childData)
+  }
   window.addEventListener('resize', showButton);
 
   return (
@@ -32,9 +36,9 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <div show={modal}>
-        <ModalLogin />
-      </div>
+        <div>
+          {modal && ( <ModalLogin parentCallback = {handleCallback}/> )}
+        </div>
     </>
   )
 }
