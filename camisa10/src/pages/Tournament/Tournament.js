@@ -31,9 +31,9 @@ function Tournament(props) {
     const [tournamentData, setTournamentData] = useState();
     
     var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
-    
+    //?dateFrom='+date+'&dateTo='+date
     useEffect(() => {
-        api.get('/competitions/' + window.location.pathname.slice(12) + '/matches?dateFrom='+date+'&dateTo='+date).then((response) => { 
+        api.get('/competitions/' + window.location.pathname.slice(12) + '/matches').then((response) => { 
             let games = []
             let numberOfMatches = 11;
             if (response.data.matches.length < 11){

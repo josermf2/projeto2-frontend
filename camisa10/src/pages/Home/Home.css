@@ -34,3 +34,16 @@
     border: 1px; 
     color: black;  
 }
+
+@media only screen and (max-width: 1075px) {
+    .homePage {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .gamesTable, .tournamentTable{
+        margin-top: 2%;
+        margin-right: 6%;
+        margin-left: 6%;
+    }
+      }

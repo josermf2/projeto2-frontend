@@ -47,3 +47,12 @@ img{
 .modal-title{
   margin-left:2%;
 }
+
+@media only screen and (max-width: 590px) {
+  img{
+    max-width: 150px;
+    max-height: 68px;
+    width: auto;
+    height:  auto;
+  }
+}

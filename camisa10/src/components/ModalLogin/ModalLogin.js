@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
 
-function ModalLogin(props){
+function ModalLogin(props){ 
     const [button, setButton] = useState(true);
 
     const [show, setShow] = useState(true);
@@ -15,10 +15,22 @@ function ModalLogin(props){
         props.parentCallback(false);
     }
 
+    const onTriggerRegister = (event) => {
+        props.parentCallback(false);
+        props.registerCallback(true);
+    }
+
+
     const closeModal = () => {
         onTrigger()
         handleClose()
     }
+
+    const openRegister = () => {
+        onTriggerRegister()
+        handleClose()
+    }
+
 
     return(
         <>
@@ -31,8 +43,10 @@ function ModalLogin(props){
                     <input className="input" placeholder="Usuário" type="text"></input>
                     <input className="input" placeholder="Senha" type="password"></input>
                     <div className="input">Não tem conta?   
-                        <Link onClick={closeModal} to="/cadastro">
-                            Registre-se
+                        <span> </span>
+
+                        <Link onClick={openRegister} to=''>
+                            Registre-se 
                         </Link>
                     </div>
                 </form>

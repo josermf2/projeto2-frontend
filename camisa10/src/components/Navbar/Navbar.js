@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '../Button/Button';
 import {Link} from 'react-router-dom';
 import './Navbar.css';
-import ModalLogin from '../Modal/Modal';
+import ModalLogin from '../ModalLogin/ModalLogin';
+import ModalRegistro from '../ModalRegistro/ModalRegistro';
 
 function Navbar() {
   const [button, setButton] = useState(true);
@@ -17,11 +18,22 @@ function Navbar() {
 
   const [modal, setModal] = useState(false);
   const showModal = () => setModal(true);
-  
+
+  const [register, setRegister] = useState(false);
+
   const handleCallback = (childData) =>{
-    console.log(childData)
     setModal(childData)
+    setRegister(childData)
   }
+
+  const handleRegisterCallback = (childData) =>{
+    setRegister(childData)
+  }
+
+  const handleRegisterCallbackClose = (childData) =>{
+    setRegister(childData)
+  }
+    
   window.addEventListener('resize', showButton);
 
   return (
@@ -37,7 +49,10 @@ function Navbar() {
         </div>
       </nav>
         <div>
-          {modal && ( <ModalLogin parentCallback = {handleCallback}/> )}
+          {modal && ( <ModalLogin registerCallback={handleRegisterCallback} parentCallback = {handleCallback}/> )}
+        </div>
+        <div>
+          {register && (<ModalRegistro parentCallback = {handleRegisterCallbackClose}/> )}
         </div>
     </>
   )
