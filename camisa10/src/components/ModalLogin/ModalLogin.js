@@ -55,7 +55,9 @@ function ModalLogin(props){
                 <Button variant="secondary" onClick={closeModal}>
                     Fechar
                 </Button>
-                    {button && <Button onClick={closeModal} className="navbar-signup" buttonStyle='btn--outline'>Entrar</Button>}
+                <Link to="/">
+                    {button && <button onClick={closeModal} className="navbar-signup" buttonStyle='btn--outline'>BsFillPersonFill</button>}
+                </Link>
                 </Modal.Footer>
             </Modal>
         </>

@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import './Navbar.css';
 import ModalLogin from '../ModalLogin/ModalLogin';
 import ModalRegistro from '../ModalRegistro/ModalRegistro';
+import { BsFillPersonFill } from "react-icons/bs";
+
 
 function Navbar() {
   const [button, setButton] = useState(true);
@@ -18,6 +20,12 @@ function Navbar() {
 
   const [modal, setModal] = useState(false);
   const showModal = () => setModal(true);
+
+  const [login, setLogin] = useState(false);
+  const loginDone = () => {
+    setLogin(true);
+    setButton(false);
+  }
 
   const [register, setRegister] = useState(false);
 
@@ -43,8 +51,13 @@ function Navbar() {
           <Link to="/" className="navbar-logo">
             <img src="/img/camisa10Logo.png" alt="camisa 10 logo"/>
           </Link>
-          <div className="navbar-signup">
-            {button && <Button className="navbar-signup" onClick={showModal} buttonStyle='btn--outline'>LOGIN</Button>}
+          <div>
+            <div className="navbar-signup">
+              {button && <Button className="navbar-signup" onClick={showModal} onClick={loginDone} buttonStyle='btn--outline'>LOGIN</Button>}
+            </div>
+            <div className="navbar-signup">
+              {login && <button className="navbar-signup" onClick={showModal} buttonStyle='btn--outline'><BsFillPersonFill /></button>}
+            </div>
           </div>
         </div>
       </nav>
