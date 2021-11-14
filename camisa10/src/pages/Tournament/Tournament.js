@@ -52,7 +52,6 @@ function Tournament(props) {
 
         api.get('competitions/' + window.location.pathname.slice(12) + '/standings').then((response) => { 
             let tournamentStangings = []
-            console.log(response.data.standings[0].table);
             for (var i = 0; i< response.data.standings[0].table.length; i++) {
                 tournamentStangings.push({
                     position: response.data.standings[0].table[i].position,

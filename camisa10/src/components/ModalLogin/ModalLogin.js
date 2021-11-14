@@ -1,12 +1,17 @@
 import { Button } from '../Button/Button';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
+import backend from "../../services/backend";
 
 function ModalLogin(props){ 
     const [button, setButton] = useState(true);
 
     const [show, setShow] = useState(true);
+    
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [wrongPassword, setWrongPassword] = useState(false);
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -20,16 +25,33 @@ function ModalLogin(props){
         props.registerCallback(true);
     }
 
-
     const closeModal = () => {
         onTrigger()
         handleClose()
     }
 
+    
     const openRegister = () => {
         onTriggerRegister()
         handleClose()
     }
+
+    
+    const login = () => {
+        backend.get('/user/'+name).then((response) => {
+            console.log(response.data.password)
+            if(response.data.password == password){
+                setWrongPassword(false)
+                props.loginCallback(name)
+                onTrigger()
+                handleClose()
+            } else {
+                setWrongPassword(true)
+            }
+        }).catch((error) => {
+            console.log(error)
+        }
+    )}
 
 
     return(
@@ -40,8 +62,11 @@ function ModalLogin(props){
                 </Modal.Header>
                 <Modal.Body>
                 <form className="form-login">
-                    <input className="input" placeholder="Usuário" type="text"></input>
-                    <input className="input" placeholder="Senha" type="password"></input>
+                    <input className="input" placeholder="Usuário" type="text" onInput={e => setName(e.target.value)}></input>
+                    <input className="input" placeholder="Senha" type="password" onInput={e => setPassword(e.target.value)}></input>
+                    <div className="senhaDiferente">
+                        {wrongPassword && <h9>Senha errada</h9>}
+                    </div>
                     <div className="input">Não tem conta?   
                         <span> </span>
 
@@ -56,7 +81,7 @@ function ModalLogin(props){
                     Fechar
                 </Button>
                 <Link to="/">
-                    {button && <button onClick={closeModal} className="navbar-signup" buttonStyle='btn--outline'>BsFillPersonFill</button>}
+                    {button && <Button onClick={login} className="navbar-signup" buttonStyle='btn--outline'>Entrar</Button>}
                 </Link>
                 </Modal.Footer>
             </Modal>

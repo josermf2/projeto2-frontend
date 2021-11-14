@@ -5,21 +5,15 @@ import './Navbar.css';
 import ModalLogin from '../ModalLogin/ModalLogin';
 import ModalRegistro from '../ModalRegistro/ModalRegistro';
 import { BsFillPersonFill } from "react-icons/bs";
-
+import { Dropdown } from 'react-bootstrap';
 
 function Navbar() {
   const [button, setButton] = useState(true);
-  
-  const showButton = () => {
-    setButton(true);
-  };
-
-  useEffect(() => {
-    showButton();
-  }, []);
 
   const [modal, setModal] = useState(false);
   const showModal = () => setModal(true);
+  
+  const [userName, setUserName] = useState("");
 
   const [login, setLogin] = useState(false);
   const loginDone = () => {
@@ -41,8 +35,12 @@ function Navbar() {
   const handleRegisterCallbackClose = (childData) =>{
     setRegister(childData)
   }
-    
-  window.addEventListener('resize', showButton);
+  
+  const handleLoginCallback = (childData) =>{
+    console.log(childData)
+    setUserName(childData)
+    loginDone()
+  }
 
   return (
     <>
@@ -53,16 +51,29 @@ function Navbar() {
           </Link>
           <div>
             <div className="navbar-signup">
-              {button && <Button className="navbar-signup" onClick={showModal} onClick={loginDone} buttonStyle='btn--outline'>LOGIN</Button>}
+              {button && <Button className="navbar-signup" onClick={showModal} buttonStyle='btn--outline'>LOGIN</Button>}
             </div>
             <div className="navbar-signup">
-              {login && <button className="navbar-signup" onClick={showModal} buttonStyle='btn--outline'><BsFillPersonFill /></button>}
+              {login && 
+                <Dropdown>
+                  <Dropdown.Toggle style={{backgroundColor:'#119b15'}} className="navbar-signup" buttonStyle='btn--outline'>
+                    <BsFillPersonFill />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item>
+                      <Link to='/favorites'>
+                            Favoritos 
+                      </Link>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>}
             </div>
           </div>
         </div>
       </nav>
         <div>
-          {modal && ( <ModalLogin registerCallback={handleRegisterCallback} parentCallback = {handleCallback}/> )}
+          {modal && ( <ModalLogin loginCallback={handleLoginCallback} registerCallback={handleRegisterCallback} parentCallback = {handleCallback}/> )}
         </div>
         <div>
           {register && (<ModalRegistro parentCallback = {handleRegisterCallbackClose}/> )}
@@ -72,4 +83,3 @@ function Navbar() {
 }
 
 export default Navbar
-
