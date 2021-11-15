@@ -37,9 +37,14 @@ function Navbar() {
   }
   
   const handleLoginCallback = (childData) =>{
-    console.log(childData)
     setUserName(childData)
     loginDone()
+  }
+
+  const logout = () => {
+    setLogin(false);
+    setButton(true);
+    setUserName("");
   }
 
   return (
@@ -61,9 +66,18 @@ function Navbar() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
+                    <Dropdown.Header>
+                      <h5>{userName}</h5>
+                    </Dropdown.Header>
+                    <Dropdown.Divider />  
                     <Dropdown.Item>
                       <Link to='/favorites'>
                             Favoritos 
+                      </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item>
+                      <Link onClick={logout} to='/'>
+                          Sair
                       </Link>
                     </Dropdown.Item>
                   </Dropdown.Menu>
