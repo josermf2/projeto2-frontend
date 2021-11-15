@@ -6,13 +6,6 @@ import {Link} from 'react-router-dom'
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { Button } from '../../components/Button/Button';
   
-function favorite(props){
-    console.log(props);
-    return(
-        <button className="btn-star"><BsStarFill /></button>
-    );
-}
-
 /*const convertUTCToLocalTime = (dateString) => {
     let date = new Date(dateString);
     const milliseconds = Date.UTC(
@@ -28,7 +21,7 @@ function favorite(props){
     localTime.getHours() // local hour
 
     console.log(localTime);
-  };*/
+  };toString(tournaments[(e.value)])<button className="btn-star"><BsStarFill /></button>;*/
 
 
 function Home() {
@@ -80,6 +73,7 @@ function Home() {
                 if (list.includes(response.data.competitions[i].id)){
                     competitions.push({
                         name: response.data.competitions[i].name,
+                        tournamentCode: {'name': response.data.competitions[i].name, 'state': false},
                         countryCode: response.data.competitions[i].area.countryCode,
                         ensignUrl: response.data.competitions[i].area.ensignUrl
                     })
@@ -142,8 +136,18 @@ function Home() {
             },
             {
                 Header: "Favoritar",
-                accessor: '',
-                Cell: <button className="btn-star" onClick={favorite}><BsStar/></button>
+                accessor: 'tournamentCode',
+                Cell: e => 
+                    <button className="btn-star" onClick={() => {
+                        if (e.value.state == false){
+                            e.value.state = true;
+                        } else{
+                            e.value.state = false;
+                        } 
+                    }}>
+                        {(e.value.state == false) && <BsStar />}
+                        {(e.value.state == true) && <BsStarFill />}
+                    </button>
             },
         ],
         []

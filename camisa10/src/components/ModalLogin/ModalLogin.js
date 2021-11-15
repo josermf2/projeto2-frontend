@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import Modal from "react-bootstrap/Modal";
 import backend from "../../services/backend";
+import './ModalLogin.css'
 
 function ModalLogin(props){ 
     const [button, setButton] = useState(true);
@@ -39,7 +40,6 @@ function ModalLogin(props){
     
     const login = () => {
         backend.get('/user/'+name).then((response) => {
-            console.log(response.data.password)
             if(response.data.password == password){
                 setWrongPassword(false)
                 props.loginCallback(name)
@@ -65,7 +65,7 @@ function ModalLogin(props){
                     <input className="input" placeholder="Usuário" type="text" onInput={e => setName(e.target.value)}></input>
                     <input className="input" placeholder="Senha" type="password" onInput={e => setPassword(e.target.value)}></input>
                     <div className="senhaDiferente">
-                        {wrongPassword && <h9>Senha errada</h9>}
+                        {wrongPassword && <h9>Senha incorreta</h9>}
                     </div>
                     <div className="input">Não tem conta?   
                         <span> </span>

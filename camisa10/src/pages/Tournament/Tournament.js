@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from "../../services/api";
 import Table from '../../components/Table/Table'
 import './Tournament.css'
-import {Link} from 'react-router-dom'
+
 function Tournament(props) {
 
     const tournaments = {
