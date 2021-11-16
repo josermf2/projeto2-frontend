@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from "../../services/api";
 import Table from '../../components/Table/Table'
 import './Tournament.css'
+import axios from 'axios';
 
 function Tournament(props) {
 
@@ -33,7 +34,11 @@ function Tournament(props) {
     var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
     //?dateFrom='+date+'&dateTo='+date
     useEffect(() => {
-        api.get('/competitions/' + window.location.pathname.slice(12) + '/matches').then((response) => { 
+        axios.get('http://api.football-data.org/v2/competitions/' + window.location.pathname.slice(12) + '/matches', {
+            headers: {
+               'X-Auth-Token':'004303a5a43a4ec9b36923c47a490493'
+            }
+          }).then((response) => { 
             let games = []
             let numberOfMatches = 11;
             if (response.data.matches.length < 11){
@@ -50,7 +55,11 @@ function Tournament(props) {
             setGamesData(games);
         })
 
-        api.get('competitions/' + window.location.pathname.slice(12) + '/standings').then((response) => { 
+        axios.get('http://api.football-data.org/v2/competitions/' + window.location.pathname.slice(12) + '/standings', {
+            headers: {
+               'X-Auth-Token':'004303a5a43a4ec9b36923c47a490493'
+            }
+          }).then((response) => { 
             let tournamentStangings = []
             for (var i = 0; i< response.data.standings[0].table.length; i++) {
                 tournamentStangings.push({

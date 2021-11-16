@@ -9,6 +9,7 @@ import backend from "../../services/backend";
 import { Button } from '../../components/Button/Button';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import axios from 'axios';
 
 /*const convertUTCToLocalTime = (dateString) => {
     let date = new Date(dateString);
@@ -47,7 +48,9 @@ function Home(props) {
     var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
 
     useEffect(() => {
-        api.get('/matches').then((response) => { 
+        axios.get('http://api.football-data.org/v2/matches', {
+            headers: {
+               'X-Auth-Token':'004303a5a43a4ec9b36923c47a490493'}}).then((response) => { 
             let games = []
             let numberOfMatches = 11;
             if (response.data.matches.length < 11){
@@ -70,7 +73,11 @@ function Home(props) {
             setGamesData(games);
         })
 
-        api.get('competitions/').then((response) => { 
+        axios.get('http://api.football-data.org/v2/competitions/', {
+            headers: {
+               'X-Auth-Token':'004303a5a43a4ec9b36923c47a490493'
+            }
+          }).then((response) => { 
             let competitions = []
             for (var i = 0; i< response.data.competitions.length; i++) {
                 if (list.includes(response.data.competitions[i].id)){
