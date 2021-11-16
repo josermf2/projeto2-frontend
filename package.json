@@ -36,7 +36,7 @@
   "bugs": {
     "url": "https://github.com/josermf2/projeto2-tecweb/issues"
   },
-  "homepage": "https://github.com/josermf2/projeto2-tecweb#readme"
+  "homepage": "https://github.com/josermf2/projeto2-tecweb#readme",
   "eslintConfig": {
     "extends": [
       "react-app",
