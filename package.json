@@ -2,30 +2,9 @@
   "name": "projeto2-tecweb",
   "version": "1.0.0",
   "description": "Dependencias:\r * npm install\r * npm install axios\r * npm install react-router-dom\r * npm install --save styled-components\r * npm install react-table\r * npm install react-bootstrap\r * npm install react-icons\r * npm install reactstrap bootstrap\r * npm start",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.24.0",
-    "bootstrap": "^3.4.1",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1",
-    "react-router-dom": "^5.3.0",
-    "react-scripts": "4.0.3",
-    "react-table": "^7.7.0",
-    "reactjs-popup": "^2.0.5",
-    "reactstrap": "^9.0.1",
-    "styled-components": "^5.3.3",
-    "web-vitals": "^1.1.2"
-  },
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -36,23 +15,5 @@
   "bugs": {
     "url": "https://github.com/josermf2/projeto2-tecweb/issues"
   },
-  "homepage": "https://github.com/josermf2/projeto2-tecweb#readme",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "homepage": "https://github.com/josermf2/projeto2-tecweb#readme"
 }
