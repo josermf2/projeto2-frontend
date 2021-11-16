@@ -31,7 +31,6 @@ function ModalLogin(props){
         handleClose()
     }
 
-    
     const openRegister = () => {
         onTriggerRegister()
         handleClose()
@@ -70,7 +69,7 @@ function ModalLogin(props){
                     <div className="input">Não tem conta?   
                         <span> </span>
 
-                        <Link onClick={openRegister} to=''>
+                        <Link onClick={openRegister} to='/'>
                             Registre-se 
                         </Link>
                     </div>

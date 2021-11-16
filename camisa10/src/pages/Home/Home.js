@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import api from "../../services/api";
 import Table from '../../components/Table/Table'
+import ModalPopUp from '../../components/ModalPopUp/ModalPopUp'
 import './Home.css'
 import {Link} from 'react-router-dom'
 import { BsStar, BsStarFill } from "react-icons/bs";
+import backend from "../../services/backend";
 import { Button } from '../../components/Button/Button';
-  
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 /*const convertUTCToLocalTime = (dateString) => {
     let date = new Date(dateString);
     const milliseconds = Date.UTC(
@@ -24,7 +28,7 @@ import { Button } from '../../components/Button/Button';
   };toString(tournaments[(e.value)])<button className="btn-star"><BsStarFill /></button>;*/
 
 
-function Home() {
+function Home(props) {
     const tournaments = {
         "Bundesliga": 2002,
         "Eredivisie": 2003,
@@ -41,7 +45,6 @@ function Home() {
     const [tournamentData, setTournamentData] = useState();
     
     var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
-
 
     useEffect(() => {
         api.get('/matches').then((response) => { 
@@ -73,7 +76,7 @@ function Home() {
                 if (list.includes(response.data.competitions[i].id)){
                     competitions.push({
                         name: response.data.competitions[i].name,
-                        tournamentCode: {'name': response.data.competitions[i].name, 'state': false},
+                        tournamentCode: response.data.competitions[i].name,
                         countryCode: response.data.competitions[i].area.countryCode,
                         ensignUrl: response.data.competitions[i].area.ensignUrl
                     })
@@ -83,7 +86,6 @@ function Home() {
         })
         // eslint-disable-next-line
     }, [])
-
 
     const gamesColumns = React.useMemo(
         () => [
@@ -134,24 +136,10 @@ function Home() {
                 Cell:  e => 
                     <Link to={"/tournament/" + (tournaments[(e.value)])}>{e.value}</Link>,
             },
-            {
-                Header: "Favoritar",
-                accessor: 'tournamentCode',
-                Cell: e => 
-                    <button className="btn-star" onClick={() => {
-                        if (e.value.state == false){
-                            e.value.state = true;
-                        } else{
-                            e.value.state = false;
-                        } 
-                    }}>
-                        {(e.value.state == false) && <BsStar />}
-                        {(e.value.state == true) && <BsStarFill />}
-                    </button>
-            },
         ],
         []
-    );        
+    );      
+
     return (
         <div className='homePage'>
             <div className='tournamentTable'>

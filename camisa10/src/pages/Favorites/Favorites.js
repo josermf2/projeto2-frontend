@@ -4,146 +4,67 @@ import Table from '../../components/Table/Table'
 import {Link} from 'react-router-dom'
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { Button } from '../../components/Button/Button';
+import backend from "../../services/backend";
+import './Favorites.css'
 
-function Favorites() {
+function Favorites(props) {
+
+    const [favCompetitions, setFavCompetitions] = useState([])
+
     const tournaments = {
+        "2002":"Bundesliga",
+        "2003":"Eredivisie",
+        "2013": "Campeonato Brasileiro Série A",
+        "2014":"Primera Division",
+        "2015":"Ligue 1",
+        "2017":"Primeira Liga",
+        "2019":"Serie A",
+        "2021":"Premier League",
+    }
+    
+    const tournamentsId = {
+        "UEFA Champions League": 2001,
         "Bundesliga": 2002,
         "Eredivisie": 2003,
         "Campeonato Brasileiro Série A": 2013,
         "Primera Division": 2014,
         "Ligue 1": 2015,
         "Primeira Liga": 2017,
+        "European Championship": 2018,
         "Serie A": 2019,
         "Premier League": 2021,
+        "Copa Libertadores": 2152
     }
 
     const [gamesData, setGamesData] = useState();
     
     const [tournamentData, setTournamentData] = useState();
     
-    var list = [2002, 2003, 2013, 2014, 2015, 2017, 2019, 2021]
-
+    const [favoriteList, setFavoriteList] = useState([]);
 
     useEffect(() => {
-        api.get('/matches').then((response) => { 
-            let games = []
-            let numberOfMatches = 11;
-            if (response.data.matches.length < 11){
-                numberOfMatches = response.data.matches.length
+        backend.get('/favorite/'+props.userName).then((response) => {
+            var newList = []
+            for (var i = 0; i < response.data.length; i++) {
+                newList.push(response.data[i].tournament)
             }
-
-            for (var i = 0; i < numberOfMatches; i++) {
-                games.push({
-                    time: (response.data.matches[i].utcDate).slice(1+response.data.matches[i].utcDate.indexOf('T'), -4),
-                    ensignUrl: response.data.matches[i].competition.area.ensignUrl,
-                    countryCode: response.data.matches[i].competition.area.code,
-                    tournament: response.data.matches[i].competition.name,
-                    homeTeamName: response.data.matches[i].homeTeam.name, 
-                    awayTeamName: response.data.matches[i].awayTeam.name
-                })
-            }
-
-
-
-            setGamesData(games);
+            setFavoriteList(newList);
         })
 
-        api.get('competitions/').then((response) => { 
-            let competitions = []
-            for (var i = 0; i< response.data.competitions.length; i++) {
-                if (list.includes(response.data.competitions[i].id)){
-                    competitions.push({
-                        name: response.data.competitions[i].name,
-                        tournamentCode: [response.data.competitions[i].name, false],
-                        countryCode: response.data.competitions[i].area.countryCode,
-                        ensignUrl: response.data.competitions[i].area.ensignUrl
-                    })
-                }
-            }
-            setTournamentData(competitions);
-        })
         // eslint-disable-next-line
     }, [])
 
-
-    const gamesColumns = React.useMemo(
-        () => [
-            {
-                Header: "Horário",
-                accessor: "time",
-            },
-            {
-                Header: "",
-                accessor: "ensignUrl",
-                Cell:  e => <img className='flags' src={e.value}/>,
-            },  
-            {
-                Header: "País",
-                accessor: "countryCode",
-            },     
-            {
-                Header: "Campeonato",
-                accessor: "tournament",
-            },   
-            {
-                Header: "Time da Casa",
-                accessor: "homeTeamName",
-            },
-            {
-                Header: "Visitante",
-                accessor: "awayTeamName",
-            },     
-
-        ],
-        []
-    );
-
-    const tournamentColumns = React.useMemo(
-        () => [  
-            {
-                Header: "",
-                accessor: "ensignUrl",
-                Cell:  e => <img className='flags' src={e.value}/>,
-            },      
-            {
-                Header: "País",
-                accessor: "countryCode",
-            },
-            {
-                Header: "Campeonato",
-                accessor: "name",
-                Cell:  e => 
-                    <Link to={"/tournament/" + (tournaments[(e.value)])}>{e.value}</Link>,
-            },
-            {
-                Header: "Favoritar",
-                accessor: 'tournamentCode',
-            },
-        ],
-        []
-    );        
     return (
         <div className='homePage'>
-            <div className='tournamentTable'>
-                {tournamentData ? 
-                    <h1 className='tournamentTitle'>
-                        Meus Campeonatos
-                    </h1> 
-                : '' }
-                {tournamentData ? 
-                    <Table columns={tournamentColumns} data={tournamentData} /> 
-                : '' }
-            </div>
-            <div className='gamesTable'>
-                {gamesData ?  
-                    <h1 className='gamesTitle'>
-                        Meus Jogos
-                    </h1>
-                : '' }
-                {gamesData ?  
-                    <Table columns={gamesColumns} data={gamesData} /> 
-                : '' }
-            </div>
+            <ul>
+                {favoriteList.map(competition => (
+                    <li className='tournament-links'>
+                        <Link className='tournament-link' to={"/tournament/" + (tournamentsId[tournaments[competition]])} key={competition.toString()}>
+                            {tournaments[competition]}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </div>       
     )
 }

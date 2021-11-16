@@ -48,6 +48,12 @@ img{
   margin-left:2%;
 }
 
+.buttons{
+  display: flex;
+  flex-direction: row;
+}
+
+
 @media only screen and (max-width: 590px) {
   img{
     max-width: 150px;
@@ -56,3 +62,4 @@ img{
     height:  auto;
   }
 }
+

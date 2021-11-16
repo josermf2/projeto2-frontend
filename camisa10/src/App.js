@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import Navbar from "./components/Navbar/Navbar";
 import {Switch, Route } from "react-router-dom";
 import "./App.css";
@@ -9,18 +9,24 @@ import Cadastro from "./pages/Cadastro/Cadastro";
 
 
 function App() {
+  const [userName, setUserName] = useState('');
+
+  const handleCallback = (childData) => {
+    setUserName(childData)
+  }
+
   return (
     <>
-        <Navbar />
+        <Navbar  userName={handleCallback}/>
         <Switch>
           <Route path='/' exact >
-            <Home />
+            <Home userName={userName}/>
           </Route>
           <Route path='/tournament'>
             <Tournament />
           </Route>
           <Route path='/favorites' exact >
-            <Favorites />
+            <Favorites userName={userName}/>
           </Route>
           <Route path='/cadastro' exact >
             <Cadastro />

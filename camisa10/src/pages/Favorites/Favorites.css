@@ -1,0 +1,9 @@
+.tournament-links{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 5%;
+    font-size: 150%;
+}
+
+
