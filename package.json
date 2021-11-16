@@ -1,0 +1,19 @@
+{
+  "name": "projeto2-tecweb",
+  "version": "1.0.0",
+  "description": "Dependencias:\r * npm install\r * npm install axios\r * npm install react-router-dom\r * npm install --save styled-components\r * npm install react-table\r * npm install react-bootstrap\r * npm install react-icons\r * npm install reactstrap bootstrap\r * npm start",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josermf2/projeto2-tecweb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josermf2/projeto2-tecweb/issues"
+  },
+  "homepage": "https://github.com/josermf2/projeto2-tecweb#readme"
+}
