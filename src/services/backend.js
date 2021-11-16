@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const backend = axios.create({
-    baseURL: 'https://camisa10-backend.herokuapp.com/api',
+    baseURL: process.env.REACT_APP_BACKEND_URL,
 });
 
 export default backend;
