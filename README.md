@@ -24,3 +24,7 @@
 * Na página inicial é o usuário tem acesso a uma lista de campeonatos e os jogos do dia. Ao clicar em um campeonato, é possível ver os jogos daquele campenato em específico e a tabela com a classificação do torneio.
 * Por meio da NavBar é possível favoritar um campeonato, lembrando que é não permitido favoritar o mesmo campeonato duas vezes.
 * O usuário pode se registrar no site com um login e senha, possibilitando que o sistema de favoritos seja liberado (para A+)
+
+## Alunos:
+* José Rafael Martins Fernandes
+* Lucca Barufatti Velini Sanches
